@@ -1,6 +1,7 @@
 package com.example.clifners6171.contactapp;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,7 +41,6 @@ public class MainActivity extends ActionBarActivity {
             Context context = getApplicationContext();
             int duration = Toast.LENGTH_SHORT;
             String message = "Data inserted correctly";
-            //Toast toast = new Toast(context, message, duration);
 
             Toast.makeText(context, message, duration).show();
         }
@@ -51,9 +51,33 @@ public class MainActivity extends ActionBarActivity {
             Context context = getApplicationContext();
             int duration = Toast.LENGTH_SHORT;
             String message = "Data not inserted correctly";
-            //Toast toast = new Toast(context, message, duration);
 
             Toast.makeText(context, message, duration).show();
         }
+    }
+
+    public void viewData (View v) {
+        Cursor res = myDb.getAllData();
+        if(res.getCount() == 0) {
+            showMessage("Error", "No data found in database");
+            Log.d("MyContact", "No data found in database");
+        }
+
+        StringBuffer buffer = new StringBuffer();
+        //set up loop (while) w/ Cursor moveToNext method
+        //  "append" each COL to the buffer
+        //  use the getString method
+
+        while(res.moveToNext()) {
+            //buffer.append(res.moveToNext());
+        }
+
+        showMessage("Data", buffer.toString());
+    }
+
+    private void showMessage(String title, String message) {
+        Log.d("MyContact", message);
+
+
     }
 }

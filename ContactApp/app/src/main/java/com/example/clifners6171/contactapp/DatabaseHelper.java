@@ -2,8 +2,10 @@ package com.example.clifners6171.contactapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by clifners6171 on 5/11/2017.
@@ -36,12 +38,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, name);
+        long result = db.insert(TABLE_NAME, null, contentValues);
+
         contentValues.put(COL_3, number);
         contentValues.put(COL_4, address);
 
-        long result = db.insert(TABLE_NAME, null, contentValues);
+
+        Log.d("MyContact", String.valueOf(contentValues.valueSet()));
+
+        //long result = db.insert(TABLE_NAME, null, contentValues);
+        Log.d("MyContact", String.valueOf(result));
         if(result == -1) return false;
         else return true;
+    }
+
+    public Cursor getAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
+        return res;
     }
 
 }
