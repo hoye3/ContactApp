@@ -11,7 +11,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Name"
         android:id="@+id/text_name"
-        android:layout_marginTop="57dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -32,7 +31,7 @@
         android:text="Add Contact"
         android:id="@+id/button_add"
         android:onClick="addData"
-        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/button_view"
         android:layout_alignRight="@+id/text_number"
         android:layout_alignEnd="@+id/text_number" />
 
@@ -63,10 +62,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Address"
         android:id="@+id/text_address"
+        android:layout_marginTop="42dp"
         android:layout_below="@+id/editText_number"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="75dp" />
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -84,10 +83,28 @@
         android:text="View Data"
         android:id="@+id/button_view"
         android:onClick="viewData"
-        android:layout_alignTop="@+id/button_add"
+        android:layout_above="@+id/button_find"
+        android:layout_alignLeft="@+id/button_find"
+        android:layout_alignStart="@+id/button_find" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find Contact"
+        android:id="@+id/button_find"
+        android:onClick="findContact"
+        android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/editText_address"
-        android:layout_alignEnd="@+id/editText_address"
-        android:layout_marginRight="42dp"
-        android:layout_marginEnd="42dp" />
+        android:layout_alignEnd="@+id/editText_address" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_findContact"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/button_find"
+        android:layout_toStartOf="@+id/button_find" />
 
 </RelativeLayout>

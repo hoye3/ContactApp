@@ -1,5 +1,6 @@
 package com.example.clifners6171.contactapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
@@ -16,7 +17,7 @@ import android.widget.Toast;
 public class MainActivity extends ActionBarActivity {
 
     DatabaseHelper myDb;
-    EditText editName, editNumber, editAddress;
+    EditText editName, editNumber, editAddress, findName;
     Button btnAddData;
 
     @Override
@@ -29,6 +30,7 @@ public class MainActivity extends ActionBarActivity {
         editName = (EditText) findViewById(R.id.editText_name);
         editNumber = (EditText) findViewById(R.id.editText_number);
         editAddress = (EditText) findViewById (R.id.editText_address);
+        findName = (EditText) findViewById (R.id.editText_findContact);
 
     }
 
@@ -69,14 +71,50 @@ public class MainActivity extends ActionBarActivity {
         //  use the getString method
 
         while(res.moveToNext()) {
-            //buffer.append(res.moveToNext());
+            buffer.append("ID "+res.getString(0)+"\n");
+            buffer.append("Name: " + res.getString(1) + "\n");
+            buffer.append("Number: " +res.getString(2)+ "\n");
+            buffer.append("Address: " + res.getString(3) +"\n");
         }
 
         showMessage("Data", buffer.toString());
     }
 
     private void showMessage(String title, String message) {
-        Log.d("MyContact", message);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true); //Cancel using back button
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.show();
+        //Log.d("MyContact", message);
+
+
+    }
+
+    public void findContact() {
+        Cursor res = myDb.getAllData();
+        if(res.getCount() == 0) {
+            showMessage("Error", "No data found in database");
+            Log.d("MyContact", "No data found in database");
+        }
+        StringBuffer buffer = new StringBuffer();
+        boolean nameFound = false;
+
+        while(res.moveToNext() && !nameFound) {
+            if(findName.toString().equals(res.getString(1))) {
+                buffer.append("ID " + res.getString(0) + "\n");
+                buffer.append("Name: " + res.getString(1) + "\n");
+                buffer.append("Number: " + res.getString(2) + "\n");
+                buffer.append("Address: " + res.getString(3) + "\n");
+                showMessage(findName.toString(), buffer.toString());
+                nameFound = true;
+            }
+        }
+        showMessage("Error", "No contact found");
+       // love stephanie;
+        // love stephanie more;
+        // :) <3;
+        // :( </3;
 
 
     }
