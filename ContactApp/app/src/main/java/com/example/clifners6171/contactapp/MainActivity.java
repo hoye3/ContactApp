@@ -91,30 +91,34 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    public void findContact() {
+    public void findContact(View v) {
         Cursor res = myDb.getAllData();
-        if(res.getCount() == 0) {
+       if(res.getCount() == 0) {
             showMessage("Error", "No data found in database");
             Log.d("MyContact", "No data found in database");
         }
+        Log.d("MyContact", String.valueOf(res.getCount()));
         StringBuffer buffer = new StringBuffer();
         boolean nameFound = false;
 
         while(res.moveToNext() && !nameFound) {
-            if(findName.toString().equals(res.getString(1))) {
+            if(findName.getText().toString().equals(res.getString(1))) {
                 buffer.append("ID " + res.getString(0) + "\n");
                 buffer.append("Name: " + res.getString(1) + "\n");
                 buffer.append("Number: " + res.getString(2) + "\n");
                 buffer.append("Address: " + res.getString(3) + "\n");
-                showMessage(findName.toString(), buffer.toString());
+                showMessage(findName.getText().toString(), buffer.toString());
                 nameFound = true;
             }
         }
-        showMessage("Error", "No contact found");
+        if(!nameFound)
+            showMessage("Error", "No contact found");
        // love stephanie;
         // love stephanie more;
         // :) <3;
         // :( </3;
+
+        //android intend for extra credit??
 
 
     }
